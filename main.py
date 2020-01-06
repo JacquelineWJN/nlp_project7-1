@@ -18,3 +18,8 @@ sim_cal = np.array(words_similarity_dataset(mc_28,max_num = 100))#Change max num
 sim_ref = mc_28[:,2]
 sim_ref = sim_ref.astype(float)
 corr = pearson_correlation(sim_cal,sim_ref)
+
+with open('results.txt', 'a') as resfile:
+    resfile.write('pearson correlation between mc_28 and our methods is %f\n' % corr) 
+
+print('done')

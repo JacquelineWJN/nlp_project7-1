@@ -57,20 +57,22 @@ def simple_sentence_similarity(s1, s2):
     overlap_2.extend(s2)
     return jaccard_similarity(overlap_1, overlap_2)
 
-if '__main__' == __name__:
-    word_sim = simple_word_similarity('boat', 'ship')
-    print('word similarity: ', word_sim)
-
-    sentence_sim = simple_sentence_similarity('float boat with a high human', 'a dog in a big ship')
-    print('sentence similarity: ', sentence_sim)
-
 #define the function to calculate all the similarities of one dataset
 def words_similarity_dataset(Dataset,max_num=30):
     sim_list = []
-    for word_pair in Dataset:
+    for i, word_pair in enumerate(Dataset):
+        print('%d/%d th pair' % (i + 1, len(Dataset)))
         w1 = word_pair[0]
         w2 = word_pair[1]
-        similarity = simple_word_similarity(w1,w2,max_num = max_num)
+        similarity = simple_word_similarity(w1, w2, max_num=max_num)
+        sim_list.append(similarity)
+    return sim_list
+
+def sentence_similarity_dataset(Dataset):
+    sim_list = []
+    for i, sentence_pair in enumerate(Dataset):
+        print('%d/%d th pair' % (i + 1, len(Dataset)))
+        similarity = simple_sentence_similarity(sentence_pair[0], sentence_pair[1])
         sim_list.append(similarity)
     return sim_list
 
@@ -79,3 +81,12 @@ def pearson_correlation(data1, data2):
 # calculate Pearson's correlation
     corr, _ = pearsonr(data1, data2)
     print('Pearsons correlation: %.3f' % corr)
+    return corr
+
+if '__main__' == __name__:
+    word_sim = simple_word_similarity('boat', 'ship')
+    print('word similarity: ', word_sim)
+
+    sentence_sim = simple_sentence_similarity('float boat with a high human', 'a dog in a big ship')
+    print('sentence similarity: ', sentence_sim)
+
