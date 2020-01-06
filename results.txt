@@ -1,0 +1,9 @@
+pearson correlation in dataset [mc] for our methods is 0.700489
+pearson correlation in dataset [rg] for our methods is 0.679792
+pearson correlation in dataset [wordsim] for our methods is 0.418979
+
+
+pearson correlation in dataset [STS-131] for our methods is 0.447219
+pearson correlation in dataset [STS-131] for Word2Vec embedding is 0.245694
+pearson correlation in dataset [STS-131] for Glove embedding is 0.094496
+pearson correlation in dataset [STS-131] for FastText embedding is 0.143092
