@@ -7,3 +7,4 @@ pearson correlation in dataset [STS-131] for Datamuse methods is 0.447219
 pearson correlation in dataset [STS-131] for Word2Vec embedding is 0.245694
 pearson correlation in dataset [STS-131] for Glove embedding is 0.094496
 pearson correlation in dataset [STS-131] for FastText embedding is 0.143092
+pearson correlation in dataset [STS-131] for Yago concepts is 0.324049

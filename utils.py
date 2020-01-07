@@ -68,7 +68,7 @@ def simple_sentence_similarity(s1, s2):
     overlap_2.extend(s2)
     return jaccard_similarity(overlap_1, overlap_2)
 
-#define the function to calculate all the similarities of one dataset
+# Using datamuse
 def words_similarity_dataset(Dataset,max_num=30):
     sim_list = []
     for i, word_pair in enumerate(Dataset):
@@ -88,6 +88,7 @@ def sentence_similarity_dataset(Dataset):
     return sim_list
 
 
+# Using Word2Vec, Glove, FastText
 def model_sentence_similarity(s1, s2, model):
     s1 = re.sub('[^a-zA-Z]', ' ', s1 )
     s1 = re.sub('\s+', ' ', s1 )
@@ -129,6 +130,33 @@ def sentence_similarity_dataset_model(Dataset, model):
     for i, sentence_pair in enumerate(Dataset):
         print('%d/%d th pair' % (i + 1, len(Dataset)))
         similarity = model_sentence_similarity(sentence_pair[0], sentence_pair[1], model)
+        sim_list.append(similarity)
+    return sim_list
+
+
+# Using Yago
+def yago_word_similarity(w1, w2, sim):
+    concepts_1 = sim.word2yago(w1)
+    concepts_2 = sim.word2yago(w2)
+    if concepts_1 and concepts_2:
+        return np.array([sim.yago_similarity(c1, c2) for c1 in concepts_1 for c2 in concepts_2]).max()
+    else:
+        return 0
+
+def yago_sentence_similarity(s1, s2, sim):
+    s1 = re.sub('[^a-zA-Z]', ' ', s1 )
+    s1 = re.sub('\s+', ' ', s1 )
+    s2 = re.sub('[^a-zA-Z]', ' ', s2 )
+    s2 = re.sub('\s+', ' ', s2 )
+    s1 = s1.strip().split()
+    s2 = s2.strip().split()
+    return np.array([yago_word_similarity(w1, w2, sim) for w1 in s1 for w2 in s2]).mean()
+
+def sentence_similarity_dataset_yago(Dataset, sim):
+    sim_list = []
+    for i, sentence_pair in enumerate(Dataset):
+        print('%d/%d th pair' % (i + 1, len(Dataset)))
+        similarity = yago_sentence_similarity(sentence_pair[0], sentence_pair[1], sim)
         sim_list.append(similarity)
     return sim_list
 

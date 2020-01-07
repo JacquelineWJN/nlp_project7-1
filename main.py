@@ -116,5 +116,24 @@ with open('results.txt', 'a') as resfile:
     resfile.write('pearson correlation in dataset [%s] for FastText embedding is %f\n' % ('STS-131', corr)) 
 
 # part 8
+with open('datasets/stss-131.csv', newline='') as csvfile:
+    contents = list(csv.reader(csvfile, delimiter=';'))
+
+from sematch.semantic.similarity import YagoTypeSimilarity
+sim = YagoTypeSimilarity()
+sim_cal = np.array(sentence_similarity_dataset_yago(contents, sim)).reshape(-1,)
+
+with open('sentence_similarity.txt', 'a') as simfile:
+    simfile.write('Using Yago concepts\n')
+    simfile.write('s1; s2; human_sim; method_sim\n\n')
+    for i, pair in enumerate(contents):
+        simfile.write('%s;%s;%s;%f\n' % (pair[0], pair[1], pair[2], sim_cal[i] * 4))
+    simfile.write('\n\n')
+
+sim_ref = np.array(contents)[:,2].astype(float) / 4.0
+corr = pearson_correlation(sim_cal,sim_ref)
+
+with open('results.txt', 'a') as resfile:
+    resfile.write('pearson correlation in dataset [%s] for Yago concepts is %f\n' % ('STS-131', corr)) 
 
 print('done')
