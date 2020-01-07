@@ -13,9 +13,17 @@ for data in datasets:
     sim_ref = np.array(contents)[:,2].astype(float)
     corr = pearson_correlation(sim_cal,sim_ref)
 
-    with open('results.txt', 'a') as resfile:
-        resfile.write('pearson correlation in dataset [%s] for our methods is %f\n' % (data, corr)) 
+    with open('word_similarity.txt', 'a') as simfile:
+        simfile.write('Using Datamuse methods\n')
+        simfile.write('w1; w2; human_sim; method_sim\n\n')
+        for i, pair in enumerate(contents):
+            simfile.write('%s;%s;%s;%f\n' % (pair[0], pair[1], pair[2], sim_cal[i]))
+        simfile.write('\n\n')
 
+    with open('results.txt', 'a') as resfile:
+        resfile.write('pearson correlation in dataset [%s] for Datamuse methods is %f\n' % (data, corr)) 
+
+exit() 
 # part 5
 with open('datasets/stss-131.csv', newline='') as csvfile:
     contents = list(csv.reader(csvfile, delimiter=';'))
@@ -23,7 +31,7 @@ with open('datasets/stss-131.csv', newline='') as csvfile:
 sim_cal = np.array(sentence_similarity_dataset(contents)).reshape(-1,)
 
 with open('sentence_similarity.txt', 'a') as simfile:
-    simfile.write('Using our methods\n')
+    simfile.write('Using Datamuse methods\n')
     simfile.write('s1; s2; human_sim; method_sim\n\n')
     for i, pair in enumerate(contents):
         simfile.write('%s;%s;%s;%f\n' % (pair[0], pair[1], pair[2], sim_cal[i] * 4))
@@ -33,7 +41,7 @@ sim_ref = np.array(contents)[:,2].astype(float) / 4.0
 corr = pearson_correlation(sim_cal,sim_ref)
 
 with open('results.txt', 'a') as resfile:
-    resfile.write('pearson correlation in dataset [%s] for our methods is %f\n' % ('STS-131', corr)) 
+    resfile.write('pearson correlation in dataset [%s] for Datamuse methods is %f\n' % ('STS-131', corr)) 
 
 # part 6 
 from gensim.models import Word2Vec 
