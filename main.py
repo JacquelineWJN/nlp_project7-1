@@ -9,7 +9,7 @@ for data in datasets:
         contents = list(csv.reader(csvfile, delimiter=';'))
 
     #Change max number of results from DatamuseAPI from here
-    sim_cal = np.array(words_similarity_dataset(contents, max_num=100))
+    sim_cal = np.array(words_similarity_dataset(contents, max_num=1000))
     sim_ref = np.array(contents)[:,2].astype(float)
     corr = pearson_correlation(sim_cal,sim_ref)
 
@@ -21,11 +21,12 @@ for data in datasets:
         simfile.write('\n\n')
 
     with open('results.txt', 'a') as resfile:
-        resfile.write('pearson correlation in dataset [%s] for Datamuse methods is %f\n' % (data, corr)) 
+        resfile.write('pearson correlation in dataset [%s] for Datamuse methods is %f\n' % (data, corr))
 
-exit() 
+exit()
+
 # part 5
-with open('datasets/stss-131.csv', newline='') as csvfile:
+with open('datasets/stss-131.csv', encoding='utf8', newline='') as csvfile:
     contents = list(csv.reader(csvfile, delimiter=';'))
 
 sim_cal = np.array(sentence_similarity_dataset(contents)).reshape(-1,)
@@ -41,19 +42,19 @@ sim_ref = np.array(contents)[:,2].astype(float) / 4.0
 corr = pearson_correlation(sim_cal,sim_ref)
 
 with open('results.txt', 'a') as resfile:
-    resfile.write('pearson correlation in dataset [%s] for Datamuse methods is %f\n' % ('STS-131', corr)) 
+    resfile.write('pearson correlation in dataset [%s] for Datamuse methods is %f\n' % ('STS-131', corr))
 
-# part 6 
-from gensim.models import Word2Vec 
+# part 6
+from gensim.models import Word2Vec
 import nltk
 nltk.download('brown')
 
-from nltk.corpus import brown 
+from nltk.corpus import brown
 
 with open('datasets/stss-131.csv', newline='') as csvfile:
     contents = list(csv.reader(csvfile, delimiter=';'))
 
-model_word2vec = Word2Vec(brown.sents(), min_count=3)
+model_word2vec = Word2Vec(brown.sents(), min_count=8)
 sim_cal = np.array(sentence_similarity_dataset_model(contents, model_word2vec.wv)).reshape(-1,)
 
 with open('sentence_similarity.txt', 'a') as simfile:
@@ -67,7 +68,7 @@ sim_ref = np.array(contents)[:,2].astype(float) / 4.0
 corr = pearson_correlation(sim_cal,sim_ref)
 
 with open('results.txt', 'a') as resfile:
-    resfile.write('pearson correlation in dataset [%s] for Word2Vec embedding is %f\n' % ('STS-131', corr)) 
+    resfile.write('pearson correlation in dataset [%s] for Word2Vec embedding is %f\n' % ('STS-131', corr))
 
 
 # part 7_glove
@@ -95,19 +96,19 @@ sim_ref = np.array(contents)[:,2].astype(float) / 4.0
 corr = pearson_correlation(sim_cal,sim_ref)
 
 with open('results.txt', 'a') as resfile:
-    resfile.write('pearson correlation in dataset [%s] for Glove embedding is %f\n' % ('STS-131', corr)) 
+    resfile.write('pearson correlation in dataset [%s] for Glove embedding is %f\n' % ('STS-131', corr))
 
 # part 7_fasttext
 from gensim.models.fasttext import FastText
 import nltk
 nltk.download('brown')
 
-from nltk.corpus import brown 
+from nltk.corpus import brown
 
 with open('datasets/stss-131.csv', newline='') as csvfile:
     contents = list(csv.reader(csvfile, delimiter=';'))
 
-model_fasttext = FastText(brown.sents(), min_count=3)
+model_fasttext = FastText(brown.sents(), min_count=8)
 sim_cal = np.array(sentence_similarity_dataset_model(contents, model_fasttext.wv)).reshape(-1,)
 
 with open('sentence_similarity.txt', 'a') as simfile:
@@ -121,7 +122,7 @@ sim_ref = np.array(contents)[:,2].astype(float) / 4.0
 corr = pearson_correlation(sim_cal,sim_ref)
 
 with open('results.txt', 'a') as resfile:
-    resfile.write('pearson correlation in dataset [%s] for FastText embedding is %f\n' % ('STS-131', corr)) 
+    resfile.write('pearson correlation in dataset [%s] for FastText embedding is %f\n' % ('STS-131', corr))
 
 # part 8
 with open('datasets/stss-131.csv', newline='') as csvfile:
@@ -142,6 +143,6 @@ sim_ref = np.array(contents)[:,2].astype(float) / 4.0
 corr = pearson_correlation(sim_cal,sim_ref)
 
 with open('results.txt', 'a') as resfile:
-    resfile.write('pearson correlation in dataset [%s] for Yago concepts is %f\n' % ('STS-131', corr)) 
+    resfile.write('pearson correlation in dataset [%s] for Yago concepts is %f\n' % ('STS-131', corr))
 
 print('done')

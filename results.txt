@@ -1,9 +1,9 @@
-pearson correlation in dataset [mc] for Datamuse methods is 0.700489
-pearson correlation in dataset [rg] for Datamuse methods is 0.679792
-pearson correlation in dataset [wordsim] for Datamuse methods is 0.418979
+pearson correlation in dataset [mc] for Datamuse methods is 0.802534
+pearson correlation in dataset [rg] for Datamuse methods is 0.775151
+pearson correlation in dataset [wordsim] for Datamuse methods is 0.510882
 
 pearson correlation in dataset [STS-131] for Datamuse embedding is 0.417408
-pearson correlation in dataset [STS-131] for Word2Vec embedding is 0.234441
-pearson correlation in dataset [STS-131] for Glove embedding is 0.098131
-pearson correlation in dataset [STS-131] for FastText embedding is 0.123906
-pearson correlation in dataset [STS-131] for Yago embedding is 0.292477
+pearson correlation in dataset [STS-131] for Word2Vec embedding is 0.282955
+pearson correlation in dataset [STS-131] for Glove embedding is 0.669221
+pearson correlation in dataset [STS-131] for FastText embedding is 0.176283
+pearson correlation in dataset [STS-131] for Yago embedding is 0.512139
